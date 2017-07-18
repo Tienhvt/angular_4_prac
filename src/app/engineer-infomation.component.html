@@ -1,0 +1,112 @@
+
+
+
+<div *ngIf="engineer;then content else other_content"></div>
+
+<ng-template #content>
+  <div  class="info-card">
+      <button md-button (click)="goBack()" class="pd-l-0"><i class="material-icons">chevron_left</i> Back</button>
+      <form [formGroup]="myForm" (ngSubmit)="save(myForm.value, myForm.valid)">
+
+        <!-- We'll add our form controls here -->
+        <md-input-container class="full-width">
+          <input mdInput placeholder="First Name" formControlName="firstName" (blur)="onBlurMethod($event)" [(ngModel)]="engineer.firstName">
+
+          <md-error *ngIf="!myForm.controls['firstName'].valid||!isBlur[0]">
+            First Name is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Last Name" formControlName="lastName" (blur)="onBlurMethod($event)" [(ngModel)]="engineer.lastName">
+
+          <md-error *ngIf="!myForm.controls['lastName'].valid||!isBlur[0]">
+            Last Name is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+
+        <md-select class="full-width mg-t-20" placeholder="Programing" [(ngModel)]="engineer.programing" formControlName="programing">
+          <md-option *ngFor="let programing of programings" [value]="programing.value">
+            {{programing.viewValue}}
+          </md-option>
+        </md-select>
+
+
+        <div class="full-width mg-t-20">
+          <md-select  placeholder="Date" formControlName="date" [(ngModel)]="tmpDate">
+            <md-option *ngFor="let date of createRange(1,31)" [value]="date">
+              {{date}}
+            </md-option>
+          </md-select>
+
+          <md-select  placeholder="Month"  formControlName="month" [(ngModel)]="tmpMonth">
+            <md-option *ngFor="let month of months" [value]="month.value">
+              {{month.viewValue}}
+            </md-option>
+          </md-select>
+
+          <md-select  placeholder="Year" formControlName="year" [(ngModel)]="tmpYear">
+            <md-option *ngFor="let year of createRange(1970,2017)" [value]="year">
+              {{year}}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="full-width mg-t-20">
+          <button md-raised-button class="md-raised md-primary full-width" [disabled]="!myForm.valid" type="button" (click)="update()">Submit</button>
+        </div>
+      </form>
+  </div>
+</ng-template>
+
+<ng-template #other_content class="info-card">
+  <div  class="info-card">
+    <button md-button (click)="goBack()" class="pd-l-0"><i class="material-icons">chevron_left</i> Back</button>
+    <form [formGroup]="myForm" (ngSubmit)="save(myForm.value, myForm.valid)">
+
+      <!-- We'll add our form controls here -->
+      <md-input-container class="full-width">
+        <input mdInput placeholder="First Name" formControlName="firstName" (blur)="onBlurMethod($event)" [(ngModel)]="firstName">
+
+        <md-error *ngIf="!myForm.controls['firstName'].valid||!isBlur[0]">
+          First Name is <strong>required</strong>
+        </md-error>
+      </md-input-container>
+      <md-input-container class="full-width">
+        <input mdInput placeholder="Last Name" formControlName="lastName" (blur)="onBlurMethod($event)" [(ngModel)]="lastName">
+
+        <md-error *ngIf="!myForm.controls['lastName'].valid||!isBlur[0]">
+          Last Name is <strong>required</strong>
+        </md-error>
+      </md-input-container>
+
+      <md-select class="full-width mg-t-20" placeholder="Programing" [(ngModel)]="programing" formControlName="programing">
+        <md-option *ngFor="let programing of programings" [value]="programing.value">
+          {{programing.viewValue}}
+        </md-option>
+      </md-select>
+
+
+      <div class="full-width mg-t-20">
+        <md-select  placeholder="Date" [(ngModel)]="date" formControlName="date">
+          <md-option *ngFor="let date of createRange(1,31)" [value]="date">
+            {{date}}
+          </md-option>
+        </md-select>
+
+        <md-select  placeholder="Month" [(ngModel)]="month" formControlName="month">
+        <md-option *ngFor="let month of months" [value]="month.value">
+          {{month.viewValue}}
+        </md-option>
+        </md-select>
+
+        <md-select  placeholder="Year" [(ngModel)]="year" formControlName="year">
+          <md-option *ngFor="let year of createRange(1970,2017)" [value]="year">
+            {{year}}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="full-width mg-t-20">
+      <button md-raised-button class="md-raised md-primary full-width" [disabled]="!myForm.valid">Submit</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

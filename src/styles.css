@@ -1,0 +1,129 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* Master Styles */
+h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+h2, h3 {
+  color: #444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+body {
+  margin: 2em;
+}
+body, input[text], button {
+
+  font-family: Cambria, Georgia;
+}
+a {
+  cursor: pointer;
+  cursor: hand;
+}
+button {
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+/*
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: auto;
+}
+*/
+/* Navigation link styles */
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+}
+nav a:visited, a:link {
+  color: #607D8B;
+}
+nav a:hover {
+  color: #039be5;
+  background-color: #CFD8DC;
+}
+nav a.active {
+  color: #039be5;
+}
+
+/* everywhere else */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container{
+  width:1000px;
+  margin: 0 auto;
+}
+.engineer-table {
+  empty-cells: show;
+  width:100%;
+}
+.engineer-table, table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.engineer-table thead {
+  color: #000;
+  text-align: left;
+  vertical-align: bottom;
+}
+.engineer-table td, .engineer-table th {
+  border-left: 1px solid #cbcbcb;
+  border-bottom: 1px solid #cbcbcb;
+  border-width: 0 0 0 1px;
+  font-size: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: .5em 1em;
+}
+.engineer-table th{
+  border:none;
+}
+.engineer-table td:first-child, .engineer-table th:first-child {
+  border-left-width: 0;
+}
+.engineer-table th, .engineer-table td {
+  padding: 0.5em 1em;
+}
+
+.engineer-table-odd td, .engineer-table-striped tr:nth-child(2n) td {
+  background-color: #f5f5f5;
+}
+.engineer-table tbody{
+  border: 1px solid #cbcbcb;
+}
+.engineer-table tbody tr:hover {background-color: #f5f5f5}
+.add-engineer{
+  text-align: right;
+  cursor:pointer;
+}
+.info-card{
+  width: 375px;
+  margin:0 auto;
+  padding-bottom: 20px;
+  padding-top:20px;
+}
+.full-width{
+  width: 100%;
+}
+.mg-t-20{
+  margin-top:20px
+}
+.pd-l-0{
+  padding-left: 0px!important;
+}

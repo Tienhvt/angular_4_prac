@@ -5,22 +5,19 @@ import { AppComponent } from './app.component';
 import {EngineerListComponent} from "./engineer-list.component";
 import {EngineerService} from "./engineer.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {BaseRequestOptions, HttpModule, RequestMethod, ResponseOptions} from "@angular/http";
+import {BaseRequestOptions, HttpModule, JsonpModule, RequestMethod, ResponseOptions} from "@angular/http";
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { AppRoutingModule } from './app-routing.module';
 import {EngineerInfomationComponent} from "./engineer-infomation.component";
 import {MaterialModule, MdButtonModule, MdInputModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
-import { By }              from '@angular/platform-browser';
+import {async, ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
 import { DebugElement }    from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import {Engineer} from "./engineer";
 import {MockBackend, MockConnection} from "@angular/http/testing";
 import { Headers, Http } from '@angular/http';
-import {Observable} from "rxjs/Observable";
-import DEFAULT_TIMEOUT_INTERVAL = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 beforeEach(() => {
   TestBed.configureTestingModule({
     declarations: [
@@ -53,40 +50,64 @@ beforeEach(() => {
       },
       {provide: APP_BASE_HREF, useValue : '/' }],
   });
-
 });
 
+describe('BannerComponent (inline template)', () => {
 
+  let comp:    AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
 
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ AppComponent ],
+    });
+    fixture = TestBed.createComponent(AppComponent);
+    comp = fixture.componentInstance;
 
-describe('1st tests', () => {
-  it('true is true', () => expect(true).toBe(true));
-});
-
-describe('EngineerService without the TestBed', () => {
-  var service: EngineerService;
-  var rootScope;
-  //let engineer: Engineer;
-  //let http : Http;
-
-  beforeEach(
-    inject([ MockBackend, Http],
-    (mb: MockBackend, http: Http) => {
-      service = new EngineerService(http);
-    }));
-  beforeEach(inject(function (_$rootScope_) {
-    rootScope = _$rootScope_;
-  }));
-  it('#getAll shoud be success', function(done){
-    spyOn(service, 'handleError');
-    console.log(service);
-
-    service.getAll().then((engineers) => {
-      expect(service.handleError).not.toHaveBeenCalled();
-      done();
-    })
   });
+  it('EngineerService is available', () => {
+    const service = fixture.debugElement.injector.get(EngineerService);
+    expect(service).toBeTruthy();
+  });
+  it('EngineerService getAll should be call', async(() => {
+    const service = fixture.debugElement.injector.get(EngineerService);
+    spyOn(service, 'handleError');
+    service.getAll().then(function(data){
+      expect(service.handleError).not.toHaveBeenCalled();
+    });
 
+  }));
+
+  it('EngineerService get should be call', async(() => {
+    const service = fixture.debugElement.injector.get(EngineerService);
+    spyOn(service, 'handleError');
+    service.get(1).then((engineer) => {
+      expect(service.handleError).not.toHaveBeenCalled();
+    });
+  }));
+  it('EngineerService save should be call', async(() => {
+    const service = fixture.debugElement.injector.get(EngineerService);
+    spyOn(service, 'handleError');
+    let engineer = new Engineer();
+    engineer.firstName = "first ";
+    engineer.lastName = "last ";
+    engineer.programing = "PHP";
+    engineer.dateOfBirth = "1990-01-15";
+    service.save(engineer).then((result) => {
+      expect(service.handleError).not.toHaveBeenCalled();
+    });
+  }));
+  it('EngineerService update should be call', async(() => {
+    const service = fixture.debugElement.injector.get(EngineerService);
+    spyOn(service, 'handleError');
+    let engineer = new Engineer();
+    engineer.id = 1;
+    engineer.firstName = "first ";
+    engineer.lastName = "last ";
+    engineer.programing = "PHP";
+    engineer.dateOfBirth = "1990-01-15";
+    service.update(engineer).then((result) => {
+      expect(service.handleError).not.toHaveBeenCalled();
+    });
+  }));
 });
-
-
